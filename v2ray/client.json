@@ -1,0 +1,136 @@
+{
+  "policy": null,
+  "log": {
+    "access": "",
+    "error": "",
+    "loglevel": "warning"
+  },
+  "inbounds": [
+    {
+      "tag": "proxy",
+      "port": 10808,
+      "listen": "127.0.0.1",
+      "protocol": "socks",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      },
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "ip": null,
+        "address": null,
+        "clients": null,
+        "decryption": null
+      },
+      "streamSettings": null
+    },
+	   {
+      "port":8000,
+      "listen":"0.0.0.0",
+      "protocol":"http",
+      "settings":{
+
+      },
+      "sniffing":{
+         "enabled":true,
+         "destOverride":[
+            "http",
+            "tls"
+         ]
+      }
+   }
+  ],
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "158.247.206.199",
+            "port": 8005,
+            "users": [
+              {
+                "id": "7c97f174-7572-47a9-beea-f45819c6c761",
+                "alterId": 32,
+                "email": "t@t.tt",
+                "security": "auto",
+                "encryption": null,
+                "flow": null
+              }
+            ]
+          }
+        ],
+        "servers": null,
+        "response": null
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": null,
+        "tlsSettings": null,
+        "tcpSettings": null,
+        "kcpSettings": null,
+        "wsSettings": null,
+        "httpSettings": null,
+        "quicSettings": null,
+        "xtlsSettings": null
+      },
+      "mux": {
+        "enabled": true,
+        "concurrency": 8
+      }
+    },
+    {
+      "tag": "direct",
+      "protocol": "freedom",
+      "settings": {
+        "vnext": null,
+        "servers": null,
+        "response": null
+      },
+      "streamSettings": null,
+      "mux": null
+    },
+    {
+      "tag": "block",
+      "protocol": "blackhole",
+      "settings": {
+        "vnext": null,
+        "servers": null,
+        "response": {
+          "type": "http"
+        }
+      },
+      "streamSettings": null,
+      "mux": null
+    }
+  ],
+  "stats": null,
+  "api": null,
+  "dns": {
+"servers": [
+"8.8.8.8",
+"8.8.4.4",
+"localhost"
+]
+},
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "type": "field",
+        "port": null,
+        "inboundTag": [
+          "api"
+        ],
+        "outboundTag": "api",
+        "ip": null,
+        "domain": null
+      }
+    ]
+  }
+}
